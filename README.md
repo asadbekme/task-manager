@@ -1,16 +1,48 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📋 **Task Manager Loyihasi**
+────────────────────────────
 
-Currently, two official plugins are available:
+## Funksionallar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- ✅ Vazifalar qo'shish
+- ✅ Bajarilgan/Bajarilmagan belgilash
+- ✅ Filtrlash (Hammasi / Aktiv / Bajarilgan)
+- ✅ API dan ma'lumot olish
+- ✅ Autentifikatsiya (login/logout)
+- ✅ Dark/Light mode
 
-## React Compiler
+## Loyihani ishga tushurish
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Repositoryni klonlash:**
+   ```bash
+   git clone <repo-url>
+   cd task-manager
+   ```
+2. **Bog'lanishlar (dependenciyalar)ni o'rnatish:**
+   ```bash
+   npm install
+   ```
+3. **Loyihani ishga tushurish:**
+   ```bash
+   npm run dev
+   ```
 
-## Expanding the ESLint configuration
+## Texnologiyalar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- CSS
+
+## Foydalanish
+
+1. Yangi vazifa qo'shish uchun input maydoniga vazifa nomini yozing va "Qo'shish" tugmasini bosing.
+2. Vazifani bajarilgan deb belgilash uchun, vazifa yonidagi checkboxni belgilang.
+3. Filtrlash uchun "Hammasi", "Aktiv", yoki "Bajarilgan" tugmalaridan foydalaning.
+4. API orqali vazifalar avtomatik yuklanadi.
+5. Autentifikatsiya orqali tizimga kirish va chiqish mumkin.
+6. Dark/Light mode tugmasi orqali dizaynni o'zgartirish mumkin.
+
+## Muallif
+
+Asadbek Rakhimov
