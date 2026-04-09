@@ -1,39 +1,62 @@
 import Badge from "./ui/badge";
+import Button from "./ui/button";
 
-function TaskItem({ title, priority, isDone }) {
-  const priorityMap = {
-    high: { type: "danger", label: "Yuqori" },
-    medium: { type: "warning", label: "O'rta" },
-    low: { type: "default", label: "Past" },
+function TaskItem({
+  id,
+  title,
+  priority = "low",
+  isDone = false,
+  onToggle,
+  onDelete,
+}) {
+  const priorityConfig = {
+    high: { type: "danger", label: "Yuqori ⬆️" },
+    medium: { type: "warning", label: "O'rta ➡️" },
+    low: { type: "default", label: "Past ⬇️" },
   };
 
-  const { type, label } = priorityMap[priority] || priorityMap.low;
+  const { type, label } = priorityConfig[priority] ?? priorityConfig.low;
 
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
-        gap: "12px",
+        gap: 12,
         padding: "12px 16px",
-        background: isDone ? "#f9fafb" : "#fff",
+        background: isDone ? "#f9fafb" : "#ffffff",
         border: "1px solid #e5e7eb",
-        borderRadius: "8px",
-        marginBottom: "8px",
-        opacity: isDone ? 0.6 : 1,
+        borderRadius: "10px",
+        marginBottom: 8,
       }}
     >
-      <span>{isDone ? "✅" : "⬜"}</span>
+      {/* Checkbox */}
+      <input
+        type="checkbox"
+        checked={isDone}
+        onChange={() => onToggle?.(id)}
+        style={{ width: 18, height: 18, cursor: "pointer" }}
+      />
+
+      {/* Title */}
       <span
         style={{
           flex: 1,
           textDecoration: isDone ? "line-through" : "none",
           color: isDone ? "#9ca3af" : "#111827",
+          fontSize: 15,
         }}
       >
         {title}
       </span>
+
+      {/* Badge */}
       <Badge type={type}>{label}</Badge>
+
+      {/* Delete button */}
+      <Button variant="ghost" size="sm" onClick={() => onDelete?.(id)}>
+        🗑️
+      </Button>
     </div>
   );
 }

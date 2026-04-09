@@ -1,13 +1,12 @@
 # React + Vite
 
 📋 **Task Manager Loyihasi**
-────────────────────────────
 
 ## Funksionallar
 
 - ✅ Vazifalar qo'shish
 - ✅ Bajarilgan/Bajarilmagan belgilash
-- ✅ Filtrlash (Hammasi / Aktiv / Bajarilgan)
+- ✅ Filtrlash (Hammasi/Aktiv/Bajarilgan)
 - ✅ API dan ma'lumot olish
 - ✅ Autentifikatsiya (login/logout)
 - ✅ Dark/Light mode
@@ -19,7 +18,7 @@
    git clone <repo-url>
    cd task-manager
    ```
-2. **Bog'lanishlar (dependenciyalar)ni o'rnatish:**
+2. **Bog'lanishlar (dependency)larni o'rnatish:**
    ```bash
    npm install
    ```
