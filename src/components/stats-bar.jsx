@@ -1,8 +1,6 @@
-function StatsBar({ tasks }) {
-  const total = tasks.length;
-  const done = tasks.filter((t) => t.isDone).length;
-  const remaining = total - done;
+function StatsBar({ total, done }) {
   const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+  const remaining = total - done;
 
   return (
     <div style={{ marginBottom: 20 }}>
@@ -13,14 +11,13 @@ function StatsBar({ tasks }) {
           marginBottom: 6,
         }}
       >
-        <span style={{ fontSize: 13, color: "#6b7280" }}>
-          {done}/{total} bajarildi
+        <span style={{ color: "#6b7280", fontSize: 13 }}>
+          {remaining > 0 ? `${remaining} ta qoldi` : "Hammasi bajarildi 🎉"}
         </span>
-        <span style={{ fontSize: 13, fontWeight: 700, color: "#3b82f6" }}>
+        <span style={{ color: "#3b82f6", fontWeight: 700, fontSize: 13 }}>
           {percent}%
         </span>
       </div>
-      {/* Progress bar */}
       <div style={{ height: 8, background: "#e5e7eb", borderRadius: 999 }}>
         <div
           style={{
@@ -28,22 +25,10 @@ function StatsBar({ tasks }) {
             borderRadius: 999,
             width: `${percent}%`,
             background: percent === 100 ? "#10b981" : "#3b82f6",
-            transition: "width 0.4s ease",
+            transition: "width 0.4s",
           }}
         />
       </div>
-      {remaining === 0 && total > 0 && (
-        <p
-          style={{
-            textAlign: "center",
-            color: "#10b981",
-            fontWeight: 700,
-            marginTop: 8,
-          }}
-        >
-          🎉 Barcha vazifalar bajarildi!
-        </p>
-      )}
     </div>
   );
 }

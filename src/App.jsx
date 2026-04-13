@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddTaskForm from "./components/add-task-form";
 import StatsBar from "./components/stats-bar";
+import FilterBar from "./components/filter-bar";
 import TaskList from "./components/task-list";
 
 const INITIAL_TASKS = [
@@ -11,26 +12,35 @@ const INITIAL_TASKS = [
 ];
 
 function App() {
+  // ✅ Global state — bir necha komponent ishlatadi
   const [tasks, setTasks] = useState(INITIAL_TASKS);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("all");
 
-  const addTask = ({ title, priority }) => {
+  // ✅ Derived state — hisoblanadi, alohida useState emas
+  const filteredTasks = tasks
+    .filter((t) =>
+      filter === "all" ? true : filter === "active" ? !t.isDone : t.isDone,
+    )
+    .filter((t) => t.title.toLowerCase().includes(search.toLowerCase()));
+
+  const doneCount = tasks.filter((t) => t.isDone).length;
+  const totalCount = tasks.length;
+
+  // ✅ Handlerlar
+  const addTask = ({ title, priority }) =>
     setTasks((prev) => [
       ...prev,
       { id: Date.now(), title, priority, isDone: false },
     ]);
-  };
 
-  const toggleTask = (id) => {
+  const toggleTask = (id) =>
     setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, isDone: !task.isDone } : task,
-      ),
+      prev.map((t) => (t.id === id ? { ...t, isDone: !t.isDone } : t)),
     );
-  };
 
-  const deleteTask = (id) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
+  const deleteTask = (id) =>
+    setTasks((prev) => prev.filter((t) => t.id !== id));
 
   return (
     <div
@@ -38,7 +48,6 @@ function App() {
         minHeight: "100vh",
         background: "#f1f5f9",
         display: "flex",
-        alignItems: "flex-start",
         justifyContent: "center",
         padding: "40px 16px",
         fontFamily: "'Segoe UI', sans-serif",
@@ -52,17 +61,29 @@ function App() {
           borderRadius: 16,
           padding: 28,
           boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+          alignSelf: "flex-start",
         }}
       >
         <h1 style={{ textAlign: "center", color: "#1e293b", marginBottom: 24 }}>
           📋 Task Manager
         </h1>
 
-        <StatsBar tasks={tasks} />
+        {/* Props sifatida uzatiladi */}
+        <StatsBar total={totalCount} done={doneCount} />
+
         <AddTaskForm onAdd={addTask} />
 
+        <FilterBar
+          search={search}
+          filter={filter}
+          onSearch={setSearch}
+          onFilter={setFilter}
+        />
+
+        {/* Natija */}
         <TaskList
-          tasks={tasks}
+          filteredTasks={filteredTasks}
+          search={search}
           toggleTask={toggleTask}
           deleteTask={deleteTask}
         />

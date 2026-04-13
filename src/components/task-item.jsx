@@ -1,22 +1,18 @@
 function TaskItem({ task, onToggle, onDelete }) {
-  const priorityColor = {
-    high: "#fee2e2",
-    medium: "#fef3c7",
-    low: "#f0fdf4",
-  };
+  const priorityBorder = { high: "#ef4444", medium: "#f59e0b", low: "#10b981" };
 
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 12,
-        padding: "12px 16px",
-        background: task.isDone ? "#f9fafb" : "#fff",
-        border: `1px solid ${task.isDone ? "#e5e7eb" : "#d1d5db"}`,
-        borderLeft: `4px solid ${priorityColor[task.priority] ?? "#e5e7eb"}`,
-        borderRadius: "10px",
+        gap: 10,
+        padding: "11px 14px",
         marginBottom: 8,
+        background: task.isDone ? "#f9fafb" : "#fff",
+        border: "1px solid #e5e7eb",
+        borderLeft: `4px solid ${priorityBorder[task.priority]}`,
+        borderRadius: 10,
         transition: "all 0.2s",
       }}
     >
@@ -25,8 +21,8 @@ function TaskItem({ task, onToggle, onDelete }) {
         checked={task.isDone}
         onChange={() => onToggle(task.id)}
         style={{
-          width: 18,
-          height: 18,
+          width: 17,
+          height: 17,
           cursor: "pointer",
           accentColor: "#3b82f6",
         }}
@@ -34,26 +30,12 @@ function TaskItem({ task, onToggle, onDelete }) {
       <span
         style={{
           flex: 1,
-          fontSize: 15,
+          fontSize: 14,
           color: task.isDone ? "#9ca3af" : "#111827",
           textDecoration: task.isDone ? "line-through" : "none",
-          transition: "all 0.2s",
         }}
       >
         {task.title}
-      </span>
-      <span
-        style={{
-          fontSize: 11,
-          fontWeight: 700,
-          textTransform: "uppercase",
-          padding: "3px 10px",
-          borderRadius: 999,
-          background: priorityColor[task.priority],
-          color: "#374151",
-        }}
-      >
-        {task.priority}
       </span>
       <button
         onClick={() => onDelete(task.id)}
@@ -61,12 +43,12 @@ function TaskItem({ task, onToggle, onDelete }) {
           background: "none",
           border: "none",
           cursor: "pointer",
-          fontSize: 16,
-          opacity: 0.5,
+          fontSize: 15,
+          opacity: 0.4,
           transition: "opacity 0.2s",
         }}
-        onMouseEnter={(e) => (e.target.style.opacity = 1)}
-        onMouseLeave={(e) => (e.target.style.opacity = 0.5)}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = 1)}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = 0.4)}
       >
         🗑️
       </button>

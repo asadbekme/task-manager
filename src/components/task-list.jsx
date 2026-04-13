@@ -1,20 +1,16 @@
 import TaskItem from "./task-item";
 
-function TaskList({ tasks, toggleTask, deleteTask }) {
+function TaskList({ filteredTasks, search, toggleTask, deleteTask }) {
   return (
     <div>
-      {tasks.length === 0 ? (
-        <p
-          style={{
-            textAlign: "center",
-            color: "#9ca3af",
-            padding: "40px 0",
-          }}
-        >
-          Vazifalar yo'q. Yangi vazifa qo'shing! ☝️
+      {filteredTasks.length === 0 ? (
+        <p style={{ textAlign: "center", color: "#9ca3af", padding: "32px 0" }}>
+          {search
+            ? `"${search}" bo'yicha hech narsa topilmadi 🔍`
+            : "Vazifalar yo'q ☝️"}
         </p>
       ) : (
-        tasks.map((task) => (
+        filteredTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
