@@ -13,10 +13,12 @@ function FilterBar({ search, filter, onSearch, onFilter }) {
         value={search}
         onChange={(e) => onSearch(e.target.value)}
         placeholder="🔍 Qidirish..."
+        onKeyDown={(e) => e.key === "Escape" && onSearch("")}
+        placeholder="🔍 Qidirish... (Esc — tozalash)"
         style={{
           flex: 1,
-          minWidth: 160,
-          padding: "9px 14px",
+          minWidth: 150,
+          padding: "9px 13px",
           borderRadius: 8,
           border: "1px solid #d1d5db",
           fontSize: 14,

@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function AddTaskForm({ onAdd }) {
-  // Bu state faqat form uchun → shu yerda turishi to'g'ri
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("medium");
+  const inputRef = useRef(null);
 
-  const handleAdd = () => {
+  const handleSubmit = (e) => {
+    e?.preventDefault();
     if (!title.trim()) return;
     onAdd({ title: title.trim(), priority });
     setTitle("");
     setPriority("medium");
+    inputRef.current?.focus(); // Qo'shgandan keyin focus qaytarish
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSubmit();
   };
 
   return (
@@ -25,17 +31,21 @@ function AddTaskForm({ onAdd }) {
       }}
     >
       <input
+        ref={inputRef}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-        placeholder="Yangi vazifa nomi..."
+        onKeyDown={handleKeyDown}
+        placeholder="Yangi vazifa... (Enter bosing)"
         style={{
           flex: 1,
           padding: "9px 13px",
           borderRadius: 8,
           border: "1px solid #d1d5db",
           fontSize: 14,
+          outline: "none",
         }}
+        onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
+        onBlur={(e) => (e.target.style.borderColor = "#d1d5db")}
       />
       <select
         value={priority}
@@ -51,7 +61,7 @@ function AddTaskForm({ onAdd }) {
         <option value="low">🟢 Past</option>
       </select>
       <button
-        onClick={handleAdd}
+        onClick={handleSubmit}
         disabled={!title.trim()}
         style={{
           padding: "9px 18px",
@@ -61,6 +71,7 @@ function AddTaskForm({ onAdd }) {
           color: "#fff",
           border: "none",
           cursor: title.trim() ? "pointer" : "not-allowed",
+          transition: "background 0.2s",
         }}
       >
         + Qo'shish

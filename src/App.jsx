@@ -16,6 +16,7 @@ function App() {
   const [tasks, setTasks] = useState(INITIAL_TASKS);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  // console.log("component rendered");
 
   // ✅ Derived state — hisoblanadi, alohida useState emas
   const filteredTasks = tasks
@@ -39,8 +40,24 @@ function App() {
       prev.map((t) => (t.id === id ? { ...t, isDone: !t.isDone } : t)),
     );
 
+  const editTask = (id, newTitle) =>
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, title: newTitle } : t)),
+    );
+
   const deleteTask = (id) =>
     setTasks((prev) => prev.filter((t) => t.id !== id));
+
+  // ✅ Keyboard shortcut — global
+  const handleGlobalKey = (e) => {
+    // Ctrl+A — hammasini bajarilgan deb belgilash
+    if (e.key === "a" && e.ctrlKey && e.shiftKey) {
+      console.log("Test");
+
+      e.preventDefault();
+      setTasks((prev) => prev.map((t) => ({ ...t, isDone: true })));
+    }
+  };
 
   return (
     <div
@@ -52,6 +69,8 @@ function App() {
         padding: "40px 16px",
         fontFamily: "'Segoe UI', sans-serif",
       }}
+      onKeyDown={handleGlobalKey}
+      tabIndex={-1}
     >
       <div
         style={{
@@ -64,9 +83,19 @@ function App() {
           alignSelf: "flex-start",
         }}
       >
-        <h1 style={{ textAlign: "center", color: "#1e293b", marginBottom: 24 }}>
+        <h1 style={{ textAlign: "center", color: "#1e293b", marginBottom: 8 }}>
           📋 Task Manager
         </h1>
+        <p
+          style={{
+            textAlign: "center",
+            color: "#9ca3af",
+            fontSize: 12,
+            marginBottom: 20,
+          }}
+        >
+          Tahrirlash uchun ikki marta bosing | Ctrl+Shift+A — hammasini bajarish
+        </p>
 
         {/* Props sifatida uzatiladi */}
         <StatsBar total={totalCount} done={doneCount} />
@@ -86,6 +115,7 @@ function App() {
           search={search}
           toggleTask={toggleTask}
           deleteTask={deleteTask}
+          editTask={editTask}
         />
       </div>
     </div>
